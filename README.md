@@ -5,8 +5,8 @@
 
 ## About
 
-The aim of this project is to study the properties of trasiently chaotic dynamic systems, like the Henon map. 
-Given a certain point of a determined domain, we can map it into another point using the Henon Map. This mapping is generally not inifintesimal. We can do this again to the later point. How many times do we have to repeat this process in order to obtain a poin which fell outside our domain? That is the definition of escape time. In the picture shown above, the x-y plane is our domain, and in the z-axis is represented the escape time. We want to have a grasp of some general properties of this system in order to develop an efficient and fast algorithm that finds domain points with the highest escape time possible.
+The aim of this project is to study the properties of trasiently chaotic dynamical systems, like the Henon map. 
+Given a certain point of a chosen domain, we can map it into another point using the Henon Map. This mapping is generally not inifintesimal. We can do this again to the latter. How many times do we have to repeat this process in order to obtain a point which fell outside our domain? That is the definition of escape time. In the picture shown above, the x-y plane is our domain, and in the z-axis is represented the escape time. We want to have a grasp of some general properties of this system in order to develop an efficient and fast algorithm that finds domain points with the highest escape time possible.
 
 ## How to run the code
 
