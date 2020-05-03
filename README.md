@@ -10,12 +10,14 @@ Given a certain point of a chosen domain, we can map it into another point using
 
 ## How to run the code
 
-### Compile and run command
+### Commands
 
-For example, to compile and run henon.cpp, with a maximum escape time of 50 iterations, run:
+To compile and run:
 
 ```sh
-g++  -I/opt/local/include -L/opt/local/lib -lgmp -lmpfr -std=c++11 henon.cpp -o henon -Wall ; ./henon 50
+make		# compiles and runs
+make compile	# only compiles
+make run	# only runs
 ```
 
 ### mpreal
