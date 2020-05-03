@@ -13,11 +13,8 @@ Given a certain point of a chosen domain, we can map it into another point using
 ### Commands
 
 To compile and run:
-
 ```sh
-make		# compiles and runs
-make compile	# only compiles
-make run	# only runs
+g++ -I/opt/local/include -L/opt/local/lib -lgmp -lmpfr -std=c++11 henon.cpp -o henon -Wall ; ./henon 50
 ```
 
 ### mpreal
