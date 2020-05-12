@@ -13,9 +13,9 @@ Given a certain point of a chosen domain, we can map it into another point using
 ### Usage commands
 
 ```sh
-make            # compiles and run
-make compile    # only compiles
-make run        # only runs
+make            # compile and run
+make compile    # only compile
+make run        # only run
 ```
 
 ### mpreal
