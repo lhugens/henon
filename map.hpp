@@ -10,7 +10,9 @@ struct HenonMap
   std::vector<Float> box_width;
 
   Float k = 6; // Parametro do mapa
-  HenonMap(unsigned tt) : r(d), r1(d), limit(tt), r_min(d), r_max(d), box_width(d) {
+
+  HenonMap(unsigned tt) : r(d), r1(d), limit(tt), r_min(d), r_max(d), box_width(d) 
+  {
     for(unsigned i = 0; i < d; i++)
       {
         r_min[i] = -5;

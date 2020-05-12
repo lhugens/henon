@@ -8,6 +8,8 @@
 #include <array> 
 #include <chrono>
 
+#include "tools.hpp"
+
 using namespace std::chrono;
 typedef mpfr::mpreal Float;
 namespace aux 
@@ -28,6 +30,7 @@ int main(int argc,char **argv)
   std::cout.precision(8);
   Simulation simul(tmin, tmax);
   Mealder meal(tmax);
+}
 
 
   // for(unsigned count = 0; count < 100; count++)
@@ -39,7 +42,6 @@ int main(int argc,char **argv)
 	//       std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGMA[t] << std::endl;
       
   //       simul.decreasef();
-  //   }
-}	
+  //   }	
 
 // g++ -I/usr/local/include -L/usr/local/lib -lgmp -lmpfr -std=c++11 henon.cpp -o henon; ./henon
