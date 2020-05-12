@@ -19,8 +19,7 @@ struct Mealder
         SORT();
     }
 
-    void SORT()
-	{
+    void SORT(){
         HenonMap temp(tmax);
 
 		for(unsigned int i = 0; i < d+1 ; i++)
@@ -32,7 +31,8 @@ struct Mealder
 					temp        = matrix[i];
 					matrix[i]   = matrix[j];
 					matrix[j]   = temp;
-				}
-            }
-        }
+				}}}
+    }
+
+
 };
