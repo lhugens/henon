@@ -33,11 +33,11 @@ struct Simulation {
     delta = 0;
     for(unsigned i = 0; i < walker.d; i++)
       {
-	d = - SIGMA[walker.t] * log(mpfr::random());
-	proposal.r[i] = walker.r[i] +  (mpfr::random() > 0.5 ? -d : d);
-	delta += d;
-	proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
-	proposal.r[i] += (proposal.r[i] < proposal.r_min[i] ? + proposal.box_width[i] : 0);
+        d = - SIGMA[walker.t] * log(mpfr::random());
+        proposal.r[i] = walker.r[i] +  (mpfr::random() > 0.5 ? -d : d);
+        delta += d;
+        proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
+        proposal.r[i] += (proposal.r[i] < proposal.r_min[i] ? + proposal.box_width[i] : 0);
       }
     proposal.TIME();
   }
@@ -62,16 +62,16 @@ struct Simulation {
     Pa = ACCEPT();
     if(Pa > 1 or  mpfr::random() < Pa)
       {
-	walker.set(proposal.r, proposal.t);
-	
-	if(walker.t == tmax and FLAG == 1)
-	  { 
-	    FLAG = 0;
-	    count++;
-	  }
-	
-	if(walker.t == tmin and FLAG == 0)
-	  FLAG = 1;
+        walker.set(proposal.r, proposal.t);
+        
+        if(walker.t == tmax and FLAG == 1)
+          { 
+            FLAG = 0;
+            count++;
+          }
+        
+        if(walker.t == tmin and FLAG == 0)
+          FLAG = 1;
 
       }
     

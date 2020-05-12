@@ -13,13 +13,15 @@ struct HenonMap
   HenonMap(unsigned tt) : r(d), r1(d), limit(tt), r_min(d), r_max(d), box_width(d) {
     for(unsigned i = 0; i < d; i++)
       {
-	r_min[i] = -5;
-	r_max[i] = 9;
-	box_width[i] = r_max[i] - r_min[i];
-	r[i] = r_min[i] + mpfr::random() * box_width[i];
+        r_min[i] = -5;
+        r_max[i] = 9;
+        box_width[i] = r_max[i] - r_min[i];
+        r[i] = r_min[i] + mpfr::random() * box_width[i];
       }
     TIME();
   }
+
+  HenonMap(){}
   
   
   bool escaped() const
@@ -38,10 +40,10 @@ struct HenonMap
 
     while( !escaped() && t < limit )
       {	
-	x = r1[0];
-	r1[0] = k - pow(x,2) - r1[1];
-	r1[1] = x;
-	t++;
+        x = r1[0];
+        r1[0] = k - pow(x,2) - r1[1];
+        r1[1] = x;
+        t++;
       }
   }
   
