@@ -23,7 +23,7 @@ struct HenonMap
     TIME();
   }
 
-  HenonMap(){}
+  HenonMap() : r(d) {}
   
   
   bool escaped() const
