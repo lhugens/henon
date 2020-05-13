@@ -1,6 +1,5 @@
 struct Mealder 
 {
-    static const unsigned int sd = 2;
     const unsigned int d = 2; 
     unsigned const tmax;
     Float alpha = 1;
@@ -16,7 +15,8 @@ struct Mealder
     HenonMap xic;
 
 
-    Mealder(const unsigned t1) : tmax(t1), verts(d+1) 
+    Mealder(const unsigned t1) : tmax(t1), verts(d+1), 
+    cent(tmax), xr(tmax), xe(tmax), xoc(tmax), xic(tmax)
     {
         for(auto& x: verts) x = HenonMap(tmax);
 
@@ -48,32 +48,32 @@ struct Mealder
 		{
 			for(unsigned i = 0; i < d; i++)
 			{
-				props[0].r[j] += verts[i].r[j] / d ;
+				cent.r[j] += verts[i].r[j] / d ;
 			}}
-        props[0].TIME();
+        cent.TIME();
 	}	
 
     void REFLECT(){
         for(unsigned i = 0; i < d; i++)
-			props[1].r[i] = props[0].r[i] + alpha*(props[0].r[i]-verts[d].r[i]);
-        props[1].TIME();
+			xr.r[i] = cent.r[i] + alpha*(cent.r[i]-verts[d].r[i]);
+        xr.TIME();
     }
 
     void EXPAND(){
        	for(unsigned i = 0; i < d; i++)
-       		props[2].r[i] = props[0].r[i] + beta*(props[1].r[i]-props[0].r[i]);
-        props[2].TIME();
+       		xe.r[i] = cent.r[i] + beta*(xr.r[i]-cent.r[i]);
+        xe.TIME();
     }
 
     void OUT_CONTRACT(){
        	for(unsigned i = 0; i < d; i++)
-       		props[3].r[i] = props[0].r[i] + gamma*(props[1].r[i]-props[0].r[i]);
-        props[3].TIME();
+       		xoc.r[i] = cent.r[i] + gamma*(xr.r[i]-cent.r[i]);
+        xoc.TIME();
     }
 
     void IN_CONTRACT(){
        	for(unsigned i = 0; i < d; i++)
-       		props[4].r[i] = props[0].r[i] - gamma*(props[1].r[i]-props[0].r[i]);
+       		xic.r[i] = cent.r[i] - gamma*(xr.r[i]-cent.r[i]);
     }
 
 	void SHRINK(){
@@ -85,10 +85,35 @@ struct Mealder
     void NelderMeadStep(){
         REFLECT();
 
-        if (verts[0].t <= props[1].t && props[1].t < )
-            verts[d].set(props[1].r, props[1].t)
+        if (verts[0].t <= xr.t && xr.t < verts[d].t)
+            verts[d].set(xr.r, xr.t);
 
-        else if(props[1].t)
+        else if(xr.t < verts[0].t){
+            EXPAND();
+
+            if (xe.t < xr.t)
+                verts[d].set(xe.r, xe.t);
+            else
+                verts[d].set(xr.r, xr.t);
+        }
+
+        else if(verts[d-1].t <= xr.t && xr.t < verts[d].t){
+            OUT_CONTRACT();
+
+            if (xoc.t <= xr.t)
+                verts[d].set(xoc.r, xoc.t);
+            else
+                SHRINK();
+        }
+
+        else if(xr.t >= verts[d].t){
+            IN_CONTRACT();
+
+            if (xic.t < verts[d].t)
+                verts[d].set(xic.r, xic.t);
+            else
+                SHRINK();
+        }
     }       
 
 };
