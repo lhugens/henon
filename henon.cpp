@@ -32,16 +32,16 @@ int main(int argc,char **argv)
   Mealder meal(tmax);
 
 
-  for(unsigned count = 0; count < 100; count++)
-    {
-      while(simul.count < 10)
-	      simul.MonteCarloStep();
-      
-      for(unsigned t = 0; t < simul.tmax; t++)
-	      std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGMA[t] << std::endl;
-      
-        simul.decreasef();
-    }
+//  for(unsigned count = 0; count < 100; count++)
+//    {
+//      while(simul.count < 10)
+//	      simul.MonteCarloStep();
+//      
+//      for(unsigned t = 0; t < simul.tmax; t++)
+//	      std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGMA[t] << std::endl;
+//      
+//        simul.decreasef();
+//    }
 }	
 
 // g++ -I/usr/local/include -L/usr/local/lib -lgmp -lmpfr -std=c++11 henon.cpp -o henon; ./henon
