@@ -1,6 +1,6 @@
 <h1 align="center">Finding rare trajectories in transiently chaotic systems</h1>
 <p align="center">
-    <img width="500" alt="Henon Landscape" src="extra/outputname-1.png">
+    <img width="900" alt="Henon Landscape" src="extra/outputname-1.png">
 </p>
 
 ## About
