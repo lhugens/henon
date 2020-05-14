@@ -27,18 +27,31 @@ struct Simulation {
     count = 0;
   };
   
-  void Propose()
+  void PROPOSE()
   {
     Float d;
-    delta = 0;
-    for(unsigned i = 0; i < walker.d; i++)
+    Float norm = 0;
+    delta = - SIGMA[walker.t] * log(mpfr::random());
+
+    for(unsigned i = 0; i < walker.d; i++) // generate random-directional vector
       {
-        d = - SIGMA[walker.t] * log(mpfr::random());
-        proposal.r[i] = walker.r[i] +  (mpfr::random() > 0.5 ? -d : d);
-        delta += d;
-        proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
-        proposal.r[i] += (proposal.r[i] < proposal.r_min[i] ? + proposal.box_width[i] : 0);
+  proposal.r[i] = mpfr::random() * 2 - 1;
+
+  norm += pow(proposal.r[i], 2);
+
+	proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
+
+	proposal.r[i] += (proposal.r[i] < proposal.r_min[i] ? + proposal.box_width[i] : 0);
       }
+
+    norm = sqrt(norm);
+
+    for(unsigned i = 0; i < walker.d; i++) // normalization
+    {
+proposal.r[i] *= delta / norm;
+proposal.r[i] += walker.r[i];
+    }
+
     proposal.TIME();
   }
   
@@ -57,7 +70,7 @@ struct Simulation {
   {
     Float Pa, d;
     
-    Propose();
+    PROPOSE();
     SIGMA[walker.t] *= ( proposal.t < walker.t ? 1/ef : (SIGMA[walker.t] < 1/ef ?  ef : 1 ));
     Pa = ACCEPT();
     if(Pa > 1 or  mpfr::random() < Pa)
