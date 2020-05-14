@@ -31,6 +31,10 @@ int main(int argc,char **argv)
   Simulation simul(tmin, tmax);
   Mealder meal(tmax);
 
+  for (unsigned iter = 0; iter < 100; iter++){
+    meal.NelderMeadStep();
+  }
+
 
 //  for(unsigned count = 0; count < 100; count++)
 //    {
@@ -42,6 +46,7 @@ int main(int argc,char **argv)
 //      
 //        simul.decreasef();
 //    }
+
 }	
 
 // g++ -I/usr/local/include -L/usr/local/lib -lgmp -lmpfr -std=c++11 henon.cpp -o henon; ./henon

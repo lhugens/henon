@@ -1,32 +1,37 @@
 struct Mealder 
 {
-    const unsigned int d = 2; 
-    unsigned const tmax;
-    Float alpha = 1;
-	Float beta  = 2;
-	Float gamma = 0.5;
-	Float delta = 0.5;
-    std::vector<HenonMap> verts;
-    
-    HenonMap cent;
-    HenonMap xr;
-    HenonMap xe;
-    HenonMap xoc;
-    HenonMap xic;
+    const unsigned int      d = 2; 
+    unsigned const          tmax;
+    Float                   alpha = 1;
+	Float                   beta  = 2;
+	Float                   gamma = 0.5;
+	Float                   delta = 0.5;
+    std::vector<HenonMap>   verts;      
+
+    HenonMap                cent;
+    HenonMap                xr;
+    HenonMap                xe;
+    HenonMap                xoc;
+    HenonMap                xic;
 
 
     Mealder(const unsigned t1) : tmax(t1), verts(d+1), 
     cent(tmax), xr(tmax), xe(tmax), xoc(tmax), xic(tmax)
     {
-        for(auto& x: verts) x = HenonMap(tmax);
-
-        SORT();
-        CENTROID();
+        TRIANGLE_GEN();
     }
 
-//vector verts: [x1, x2, x3]
-//vector props: [centroid, xr, xe, xoc, xic]
+    void TRIANGLE_GEN(){
+        for(auto& x: verts){
+            x = HenonMap(tmax);
+        } 
+    }
 
+    void EVAL(){
+        for(auto& x: verts){
+            x.TIME();
+        } 
+    }
 
     void SORT(){
         HenonMap temp(tmax);
@@ -35,11 +40,11 @@ struct Mealder
 		{
 			for (unsigned j = i+1; j < d+1; j++)
 			{
-				if (verts[i].t > verts[j].t)
+				if (-verts[i].t > -verts[j].t)
 				{
-					temp    = verts[i];
-					verts[i]= verts[j];
-					verts[j]= temp;
+					temp     = verts[i];
+					verts[i] = verts[j];
+					verts[j] = temp;
 				}}}
     }
 
@@ -83,33 +88,37 @@ struct Mealder
 	}
 
     void NelderMeadStep(){
+        EVAL();
+        SORT();
+        print(verts[0].t);
+        CENTROID();
         REFLECT();
 
-        if (verts[0].t <= xr.t && xr.t < verts[d].t)
+        if (-verts[0].t <= -xr.t || -xr.t < -verts[d-1].t)
             verts[d].set(xr.r, xr.t);
 
-        else if(xr.t < verts[0].t){
+        else if(-xr.t < -verts[0].t){
             EXPAND();
 
-            if (xe.t < xr.t)
+            if (-xe.t < -xr.t)
                 verts[d].set(xe.r, xe.t);
             else
                 verts[d].set(xr.r, xr.t);
         }
 
-        else if(verts[d-1].t <= xr.t && xr.t < verts[d].t){
+        else if(-verts[d-1].t <= -xr.t || -xr.t < -verts[d].t){
             OUT_CONTRACT();
 
-            if (xoc.t <= xr.t)
+            if (-xoc.t <= -xr.t)
                 verts[d].set(xoc.r, xoc.t);
             else
                 SHRINK();
         }
 
-        else if(xr.t >= verts[d].t){
+        else if(-xr.t >= -verts[d].t){
             IN_CONTRACT();
 
-            if (xic.t < verts[d].t)
+            if (-xic.t < -verts[d].t)
                 verts[d].set(xic.r, xic.t);
             else
                 SHRINK();

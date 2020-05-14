@@ -1,15 +1,14 @@
 struct HenonMap
 {
   static const unsigned int d = 2;
-  std::vector<Float> r;
-  std::vector<Float> r1;
-  unsigned t;
-  unsigned limit;
-  std::vector<Float> r_min;
-  std::vector<Float> r_max;
-  std::vector<Float> box_width;
-
-  Float k = 6; // Parametro do mapa
+  std::vector<Float>        r;
+  std::vector<Float>        r1;
+  unsigned                  t;
+  unsigned                  limit;
+  std::vector<Float>        r_min;
+  std::vector<Float>        r_max;
+  std::vector<Float>        box_width;  
+  Float                     k = 6;
 
   HenonMap(unsigned tt) : r(d), r1(d), limit(tt), r_min(d), r_max(d), box_width(d) 
   {
