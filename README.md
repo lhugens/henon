@@ -25,6 +25,8 @@ mv mpreal.h temp.h && mv mpreal0.h mpreal.h && mv temp.h mpreal0.h
 
 If you lose track of which one is which, the most up-to-date version has a "modified version" flag in the beginning of the file itself.
 
+## Notes
+
 <p align="center">
     <img width="900" alt="Henon Landscape" src="extra/Notes-1.png">
     <img width="900" alt="Henon Landscape" src="extra/Notes-2.png">
