@@ -1,7 +1,4 @@
 <h1 align="center">Finding rare trajectories in transiently chaotic systems</h1>
-<p align="center">
-    <img width="900" alt="Henon Landscape" src="extra/outputname-3.png">
-</p>
 
 ## About
 
@@ -28,3 +25,12 @@ mv mpreal.h temp.h && mv mpreal0.h mpreal.h && mv temp.h mpreal0.h
 
 If you lose track of which one is which, the most up-to-date version has a "modified version" flag in the beginning of the file itself.
 
+<p align="center">
+    <img width="900" alt="Henon Landscape" src="extra/Notes-1.png">
+    <img width="900" alt="Henon Landscape" src="extra/Notes-2.png">
+    <img width="900" alt="Henon Landscape" src="extra/Notes-3.png">
+    <img width="900" alt="Henon Landscape" src="extra/Notes-4.png">
+    <img width="900" alt="Henon Landscape" src="extra/Notes-5.png">
+    <img width="900" alt="Henon Landscape" src="extra/Notes-6.png">
+    <img width="900" alt="Henon Landscape" src="extra/Notes-7.png">
+</p>
