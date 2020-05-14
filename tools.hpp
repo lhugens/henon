@@ -10,10 +10,10 @@
 template <typename T>
 void print(T &point){
     std::cout <<
-        " [ " << point.t    <<
-        ", " << point.r[0] << 
-        ", " << point.r[1] <<
-        " ]" << std::endl;
+        " [ " << std::setw(5) << point.t    <<
+        ", "  << std::setw(15) << point.r[0] << 
+        ", "  << std::setw(15) << point.r[1] <<
+        " ]"  << std::setw(15) << std::endl;
 }
 template <typename T>
 void echo(T s){

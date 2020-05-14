@@ -11,4 +11,4 @@ all: compile run
 compile:
 	$(CC) $(ALL) $(OBJECT) -o $(TARGET)
 run:
-	./henon 50
+	./henon 1000
