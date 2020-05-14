@@ -13,10 +13,11 @@ struct Mealder
     HenonMap                xe;
     HenonMap                xoc;
     HenonMap                xic;
+    HenonMap                temp;
 
 
     Mealder(const unsigned t1) : tmax(t1), verts(d+1), 
-    cent(tmax), xr(tmax), xe(tmax), xoc(tmax), xic(tmax)
+    cent(tmax), xr(tmax), xe(tmax), xoc(tmax), xic(tmax), temp(tmax)
     {
         TRIANGLE_GEN();
         verts[0].r[0] = 0.641004 ;
@@ -52,11 +53,11 @@ struct Mealder
 		{
 			for (unsigned j = i+1; j < d+1; j++)
 			{
-				if (-verts[i].t > -verts[j].t)
+				if (verts[i].t < verts[j].t)
 				{
-					temp     = verts[i];
-					verts[i] = verts[j];
-					verts[j] = temp;
+                    temp.set(verts[i].r, verts[i].t);
+                    verts[i].set(verts[j].r, verts[j].t);
+                    verts[j].set(temp.r, temp.t);
 				}}}
     }
 
@@ -73,7 +74,6 @@ struct Mealder
 	}	
 
     void REFLECT(){
-    echo("ultimo:   "); print(verts[d]);
         for(unsigned i = 0; i < d; i++)
 			xr.r[i] = cent.r[i] + alpha*(cent.r[i]-verts[d].r[i]);
         xr.TIME();
@@ -117,7 +117,7 @@ struct Mealder
         CENTROID();
         REFLECT();
 
-        if (verts[0].t >= xr.t || xr.t > verts[d-1].t){
+        if (verts[0].t >= xr.t && xr.t > verts[d-1].t){
             verts[d].set(xr.r, xr.t); echo("hey\n");}
 
         else if(xr.t > verts[0].t){
@@ -129,7 +129,7 @@ struct Mealder
                 verts[d].set(xr.r, xr.t);
         }
 
-        else if(verts[d-1].t >= xr.t || xr.t > verts[d].t){
+        else if(verts[d-1].t >= xr.t && xr.t > verts[d].t){
             OUT_CONTRACT();
 
             if (xoc.t >= xr.t)
