@@ -1,3 +1,12 @@
+---
+author:
+- |
+  Leonardo L. D. L. Hügens\
+  J. M. Viana Parente Lopes\
+  Eduardo G. Altmann
+title: Finding rare trajectories in transiently chaotic systems
+---
+
 Introduction {#introduction .unnumbered}
 ============
 
