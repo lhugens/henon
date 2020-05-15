@@ -3,9 +3,10 @@
 ## About
 
 In simplified terms, a dynamical system is a set of there entities: a function (also refered to as a “map”), a domain, and the following algorithm: choose an initial position, map it to another position through the function,
-   and repeating the last step recursively. We define the escape time of the initial position as the number of these iterations needed for the jumping point to fall outside the chosen domain.
+   and repeate the last step recursively. We define the escape time of the initial position as the number of these iterations needed for the jumping point to fall outside the chosen domain.
 This is a very basic definition, but it is completely sufficient in the context of this project.
-Our main goal is to find algorithms that can find points \boldsymbol{r_{0}} with maximum escape time, implement them in computer programs, and finally tweak and compare them.
+Our main goal is to find algorithms that can find points with maximum escape time, implement them in computer programs, and finally tweak and compare them. Scroll down to view more detailed notes.
+
 ## How to run the code
 
 ### Usage commands
