@@ -156,7 +156,18 @@ map
 \end_inset
 
 .
- A visualization of this process is represented below, in Figure 1.
+ A visualization of this process is represented below, in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:iteration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  This is a very basic definition, but it is completely sufficient in the
  context of this project.
 \end_layout
@@ -446,7 +457,17 @@ A very aesthetically pleasing way to represent bi-dimensional dynamical
 
  plane.
  Below, in Fig.
- 2, we represent the Hénon map in this manner.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:colormap"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we represent the Hénon map in this manner.
  Note that we limited the plot to this box to see the base structure more
  clearly, as the maximum escape times we have found are about 600 iterations.
 \end_layout
@@ -509,54 +530,8 @@ newpage{}
 
 \end_layout
 
-\begin_layout Section*
-Generic Maximization Algorithms
-\end_layout
-
-\begin_layout Standard
-The source 
-\begin_inset CommandInset href
-LatexCommand href
-target "https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html"
-
-\end_inset
-
- provides several generic minimization algorithms implemented in the scipy.optimi
-ze package, ready to use.
-\end_layout
-
-\begin_layout Standard
-The following algorithms are automatically unusable due to the need of a
- gradient of the function to be minimized, which is generaly impossible
- to obtain due to the roughness of the landscape: Newton-Conjugate-Gradient
- (NCG), Trust-Region NCG, Trust-Region Truncated Generalized Lanczos / NCG,
- Trust-Region Nearly Exact.
- 
-\end_layout
-
-\begin_layout Standard
-At first sight, the usable algorithms are those who only rely on the evaluation
- of the function, those which belong to the 
-\series bold
-Pattern Search
-\series default
- family (also known as direct search, derivative search, or black-box search).
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-newpage{}
-\end_layout
-
-\end_inset
-
-
+\begin_layout Section
+Algorithms
 \end_layout
 
 \begin_layout Subsection
@@ -566,6 +541,12 @@ Multicanonical Sampling
 \begin_layout Standard
 \paragraph_spacing double
 \align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1079,6 +1060,31 @@ end{tikzpicture}
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Multicanonical sampling algorithm.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:montecarlo"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1090,235 +1096,6 @@ status open
 
 \backslash
 newpage{}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\paragraph_spacing double
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}[node distance=1.5cm, bend angle=90] 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node (start) [startstop] 
-\end_layout
-
-\begin_layout Plain Layout
-
-{$
-\backslash
-begin{aligned} 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-text{Arguments : } & 
-\backslash
-boldsymbol{r_{0}} = (x_{0},y_{0}) 
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-text{Initialize : } & t 
-\backslash
-equiv 0 
-\backslash
-text{ ; } 
-\backslash
-boldsymbol{r} = 
-\backslash
-boldsymbol{r_{0}}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{aligned}$};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node (map) [startstop, below of=start, yshift = -1.2cm]
-\end_layout
-
-\begin_layout Plain Layout
-
-{$
-\backslash
-begin{aligned} 
-\end_layout
-
-\begin_layout Plain Layout
-
- x^{
-\backslash
-prime} & 
-\backslash
-equiv k-x^{2}-y 
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
- x^{
-\backslash
-prime} & 
-\backslash
-equiv k-x^{2}-y 
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
- t          & 
-\backslash
-equiv t+1
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{aligned}$};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node (box) [startstop, below of=map, yshift=-1cm] 
-\end_layout
-
-\begin_layout Plain Layout
-
-{$
-\backslash
-boldsymbol{r}^{
-\backslash
-prime} 
-\backslash
-in 
-\backslash
-text{Domain}$ ?};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node (repeat) [startstop, below of=box, xshift = -2cm]{$
-\backslash
-boldsymbol{r} = 
-\backslash
-boldsymbol{r^{
-\backslash
-prime}}$};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node (end) [startstop, below of=box, xshift = 2cm]{$t(
-\backslash
-boldsymbol{r_{0}}) = t$};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [arrow] (start) -- (map);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [arrow] (map) -- (box);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [arrow] (box) -- node[anchor=west] {no} (end);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [arrow] (box) -- node[anchor=east] {yes} (repeat);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [arrow] (repeat) edge [bend left] (map);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
 \end_layout
 
 \end_inset
@@ -1387,10 +1164,12 @@ One iteration of the algorithm proceeds as follows:
 \end_inset
 
 
-\end_layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-\begin_layout Standard
-\paragraph_spacing double
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1873,9 +1652,35 @@ end{tikzpicture}
 \end_inset
 
 
-\begin_inset Newline newline
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Nelder-Mead Algorithm.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mealder"
+
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
 
 \end_layout
 
@@ -2079,6 +1884,13 @@ textit{conjugate}
 
 \begin_layout Standard
 \align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -2231,6 +2043,28 @@ end{tikzpicture}
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Powell's Method.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -2248,6 +2082,10 @@ newpage{}
 \end_layout
 
 \begin_layout Section
+Test functions for generic minimization algorithms
+\end_layout
+
+\begin_layout Subsection
 The Rosenbrock function
 \end_layout
 
@@ -2282,6 +2120,14 @@ Rosenbrock function (
 \end_inset
 
 .
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rosen"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2299,9 +2145,19 @@ Rosenbrock function (
 \end_layout
 
 \begin_layout Standard
-The Rosenbrock function (represented in the figure above) is a non-convex
- function which is used as a performance test problem for optimization algorithm
-s.
+The Rosenbrock function (represented in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:rosen"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is a non-convex function which is used as a performance test problem for
+ optimization algorithms.
  The global minimum is inside a long, narrow, parabolic shaped flat valley,
  and minimization algorithms usually converge rapidly to this valley, but
  converging to the actual global minimum is harder.
