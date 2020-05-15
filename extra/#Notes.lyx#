@@ -169,9 +169,12 @@ Our main goal is to find algorithms that can find points
 
  with maximum escape time, implement them in computer programs, and finally
  tweak and compare them.
-\end_layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \paragraph_spacing double
 \align center
 \begin_inset ERT
@@ -372,12 +375,42 @@ end{tikzpicture}
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Representation of the iteration process.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:iteration"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section*
-Map Parameters
+Test Map
 \end_layout
 
 \begin_layout Standard
-For this study, we used the iconic Hénon Map with 
+The map that will be used throughout this study is the iconic Hénon map,
+ with 
 \begin_inset Formula $k=6$
 \end_inset
 
@@ -385,13 +418,37 @@ For this study, we used the iconic Hénon Map with
 \end_layout
 
 \begin_layout Standard
-The largest escape time generated yet by a multicanonical simulation on
- 
-\begin_inset Formula $\Gamma=[-5,9]²$
+\align center
+
+\size large
+\begin_inset Formula $\begin{aligned}x_{n+1} & =k-x^{2}-y_{n}\\
+y_{n+1} & =x_{n}
+\end{aligned}
+$
 \end_inset
 
- algorithm is 627 map iterations.
- The landscape obtained is represented below:
+
+\end_layout
+
+\begin_layout Standard
+A very aesthetically pleasing way to represent bi-dimensional dynamical
+ systems in the point of view of the escape time is to plot it in the 
+\begin_inset Formula $z$
+\end_inset
+
+ axis, along with the corresponding points in the 
+\begin_inset Formula $x$
+\end_inset
+
+-
+\begin_inset Formula $y$
+\end_inset
+
+ plane.
+ Below, in Fig.
+ 2, we represent the Hénon map in this manner.
+ Note that we limited the plot to this box to see the base structure more
+ clearly, as the maximum escape times we have found are about 600 iterations.
 \end_layout
 
 \begin_layout Standard
@@ -416,6 +473,14 @@ status open
 
 \begin_layout Plain Layout
 Landscape of the henon map with k = 6.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:colormap"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

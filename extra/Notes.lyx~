@@ -20,7 +20,7 @@
 \maintain_unincluded_children false
 \language english
 \language_package default
-\inputencoding utf8
+\inputencoding auto
 \fontencoding global
 \font_roman "default" "default"
 \font_sans "default" "default"
@@ -108,11 +108,6 @@ Leonardo L.
 J.
  M.
  Viana Parente Lopes
-\begin_inset Newline newline
-\end_inset
-
-Eduardo G.
- Altmann
 \end_layout
 
 \begin_layout Section*
@@ -168,44 +163,6 @@ For this study, we used the iconic Hénon Map with
 \end_layout
 
 \begin_layout Standard
-\paragraph_spacing double
-The associated Jacobian matrix is 
-\begin_inset Formula $\mathbf{{J(\mathbf{x})}}=\left(\begin{array}{cc}
--2x_{n} & -1\\
-1 & 0
-\end{array}\right)$
-\end_inset
-
-, and the respective determinant is 
-\begin_inset Formula $J(\mathbf{x})=1$
-\end_inset
-
-.
- Its eigenvalues and eigenvectors are respectively 
-\begin_inset Formula $e_{\pm}=-x\pm\sqrt{x²-1}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{e_{\pm}}=(e_{\pm},1)$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-The Lyapunov exponent is, therefore:
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Formula $\lambda_{n}(\boldsymbol{x})=\frac{1}{n}\sum_{i=0}^{t-1}log(J(\mathbf{x}))=0$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 The largest escape time generated yet by a multicanonical simulation on
  
 \begin_inset Formula $\Gamma=[-5,9]²$
@@ -245,6 +202,22 @@ Landscape of the henon map with k = 6.
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newpage{}
 \end_layout
 
 \end_inset

@@ -61,7 +61,7 @@
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
-\suppress_date false
+\suppress_date true
 \justification true
 \use_refstyle 1
 \use_minted 0
@@ -115,31 +115,302 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Given a specific dynamical system, with an associated map 
-\begin_inset Formula $\boldsymbol{r}_{n+1}=\boldsymbol{F}\left(\boldsymbol{r}_{n}\right)$
+In simplified terms, a dynamical system is a set of there entities: a function
+ 
+\begin_inset Formula $\boldsymbol{F}:\mathbb{R}^{n}\rightarrow\mathbb{R}^{n},\boldsymbol{r}\mapsto\boldsymbol{F}\left(\boldsymbol{r}\right)$
 \end_inset
 
-, it is possible to define an escape time 
-\begin_inset Formula $t(\boldsymbol{r})$
+ (also refered to as a 
+\begin_inset Quotes eld
 \end_inset
 
- as the number of the map iterations necessary for the trajectory to leave
- a certain domain 
+map
+\begin_inset Quotes erd
+\end_inset
+
+), a domain 
+\begin_inset Formula $\Gamma\in\mathbb{R}^{n}$
+\end_inset
+
+, and a algorithm.
+ This algorithm consists in choosing an initial position 
+\begin_inset Formula $\boldsymbol{r}_{0}\in\Gamma$
+\end_inset
+
+, mapping it to another position through the function, 
+\begin_inset Formula $\boldsymbol{r_{1}}=\boldsymbol{F}\left(\boldsymbol{r_{0}}\right)$
+\end_inset
+
+, and repeating the last step recursively (
+\begin_inset Formula $\boldsymbol{r_{2}}=\boldsymbol{F}\left(\boldsymbol{r_{1}}\right)$
+\end_inset
+
+, ...).
+ We define the escape time of the initial position 
+\begin_inset Formula $t(\boldsymbol{r_{0}})$
+\end_inset
+
+ as the number of these iterations needed for the jumping point to fall
+ outside the domain 
 \begin_inset Formula $\Gamma$
 \end_inset
 
 .
- The main goal of this study is to perform a comparative analysis between
- computer algorithms specificaly designed for an efficient search of long
- trajectories and generic maximization algorithms.
-\end_layout
-
-\begin_layout Section*
-Map Parameters
+ A visualization of this process is represented below, in Figure 1.
+ This is a very basic definition, but it is completely sufficient in the
+ context of this project.
 \end_layout
 
 \begin_layout Standard
-For this study, we used the iconic Hénon Map with 
+\paragraph_spacing double
+Our main goal is to find algorithms that can find points 
+\begin_inset Formula $\boldsymbol{r_{0}}$
+\end_inset
+
+ with maximum escape time, implement them in computer programs, and finally
+ tweak and compare them.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\paragraph_spacing double
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[node distance=1.5cm, bend angle=90] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node (start) [startstop] 
+\end_layout
+
+\begin_layout Plain Layout
+
+{$
+\backslash
+begin{aligned} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+text{Arguments : } & 
+\backslash
+boldsymbol{r_{0}} = (x_{0},y_{0}) 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+text{Initialize : } & t 
+\backslash
+equiv 0 
+\backslash
+text{ ; } 
+\backslash
+boldsymbol{r} = 
+\backslash
+boldsymbol{r_{0}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{aligned}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node (map) [startstop, below of=start, yshift = -1cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{$
+\backslash
+boldsymbol{r}^{
+\backslash
+prime}=
+\backslash
+boldsymbol{F}
+\backslash
+left(
+\backslash
+boldsymbol{r}
+\backslash
+right)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node (box) [startstop, below of=map, yshift=-0.8cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+{$
+\backslash
+boldsymbol{r}^{
+\backslash
+prime} 
+\backslash
+in 
+\backslash
+text{Domain}$ ?};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node (repeat) [startstop, below of=box, xshift = -2cm]{$
+\backslash
+boldsymbol{r} = 
+\backslash
+boldsymbol{r^{
+\backslash
+prime}}$ ; $t
+\backslash
+mapsto t+1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node (end) [startstop, below of=box, xshift = 2cm]{$t(
+\backslash
+boldsymbol{r_{0}}) = t$};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [arrow] (start) -- (map);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [arrow] (map) -- (box);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [arrow] (box) -- node[anchor=west] {no} (end);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [arrow] (box) -- node[anchor=east] {yes} (repeat);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [arrow] (repeat) edge [bend left] (map);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Representation of the iteration process.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:iteration"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Test Map
+\end_layout
+
+\begin_layout Standard
+The map that will be used throughout this study is the iconic Hénon map,
+ with 
 \begin_inset Formula $k=6$
 \end_inset
 
@@ -148,31 +419,36 @@ For this study, we used the iconic Hénon Map with
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $x_{n+1}=k-x_{n}²-y_{n}$
+
+\size large
+\begin_inset Formula $\begin{aligned}x_{n+1} & =k-x^{2}-y_{n}\\
+y_{n+1} & =x_{n}
+\end{aligned}
+$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\align center
-\begin_inset Formula $y_{n+1}=x_{n}$
+A very aesthetically pleasing way to represent bi-dimensional dynamical
+ systems in the point of view of the escape time is to plot it in the 
+\begin_inset Formula $z$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-The largest escape time generated yet by a multicanonical simulation on
- 
-\begin_inset Formula $\Gamma=[-5,9]²$
+ axis, along with the corresponding points in the 
+\begin_inset Formula $x$
 \end_inset
 
- algorithm is 627 map iterations.
-\end_layout
+-
+\begin_inset Formula $y$
+\end_inset
 
-\begin_layout Standard
-The landscape obtained is represented below:
+ plane.
+ Below, in Fig.
+ 2, we represent the Hénon map in this manner.
+ Note that we limited the plot to this box to see the base structure more
+ clearly, as the maximum escape times we have found are about 600 iterations.
 \end_layout
 
 \begin_layout Standard
@@ -197,6 +473,14 @@ status open
 
 \begin_layout Plain Layout
 Landscape of the henon map with k = 6.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:colormap"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -850,9 +1134,7 @@ begin{aligned}
 \backslash
 text{Arguments : } & 
 \backslash
-boldsymbol{r_{0}} = (x_{0},y_{0})
-\backslash
-text{ ; } T_{limit} 
+boldsymbol{r_{0}} = (x_{0},y_{0}) 
 \backslash
 
 \backslash
@@ -952,7 +1234,7 @@ node (box) [startstop, below of=map, yshift=-1cm]
 
 \begin_layout Plain Layout
 
-{($
+{$
 \backslash
 boldsymbol{r}^{
 \backslash
@@ -960,11 +1242,7 @@ prime}
 \backslash
 in 
 \backslash
-text{Domain}) 
-\backslash
-land (T_{min} < t^{
-\backslash
-prime} < T_{limit})$ ?};
+text{Domain}$ ?};
 \end_layout
 
 \begin_layout Plain Layout
@@ -1041,22 +1319,6 @@ draw [arrow] (repeat) edge [bend left] (map);
 
 \backslash
 end{tikzpicture}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-newpage{}
 \end_layout
 
 \end_inset
@@ -1916,6 +2178,11 @@ right)$};
 node (step5) [startstop, below of=step4] {$
 \backslash
 mathbf{x}_{0} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
 \backslash
 equiv 
 \backslash
