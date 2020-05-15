@@ -2,9 +2,10 @@
 
 ## About
 
-The aim of this project is to study the properties of trasiently chaotic dynamical systems, like the Henon map. 
-Given a certain point of a chosen domain, we can map it into another point using the Henon Map. This mapping is generally not inifintesimal. We can do this again to the latter. How many times do we have to repeat this process in order to obtain a point which fell outside our domain? That is the definition of escape time. In the picture shown above, the x-y plane is our domain, and in the z-axis is represented the escape time. We want to have a grasp of some general properties of this system in order to develop an efficient and fast algorithm that finds domain points with the highest escape time possible.
-
+In simplified terms, a dynamical system is a set of there entities: a function (also refered to as a “map”), a domain, and the following algorithm: choose an initial position, map it to another position through the function,
+   and repeating the last step recursively. We define the escape time of the initial position as the number of these iterations needed for the jumping point to fall outside the chosen domain.
+This is a very basic definition, but it is completely sufficient in the context of this project.
+Our main goal is to find algorithms that can find points \boldsymbol{r_{0}} with maximum escape time, implement them in computer programs, and finally tweak and compare them.
 ## How to run the code
 
 ### Usage commands
