@@ -547,6 +547,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -1159,7 +1160,18 @@ Let
 
 \begin_layout Standard
 \paragraph_spacing double
-One iteration of the algorithm proceeds as follows:
+One iteration of the algorithm proceeds as represented below, in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mealder"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \begin_inset Newline newline
 \end_inset
 
@@ -1170,6 +1182,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -1879,7 +1892,18 @@ textit{conjugate}
 \end_inset
 
  are usually chosen to be the cartesian basis vectors.
- An iteration of the algorithm is represented below.
+ An iteration of the algorithm is represented in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:powell"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2044,11 +2068,19 @@ end{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Powell's Method.
  
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:powell"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
