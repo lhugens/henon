@@ -35,7 +35,7 @@ struct Simulation {
 
     for(unsigned i = 0; i < walker.d; i++) // generate random-directional vector
       {
-  proposal.r[i] = mpfr::random() * 2 - 1;
+  proposal.r[i] = mpfr::grandom();
 
   norm += pow(proposal.r[i], 2);
 

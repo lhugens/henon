@@ -7,6 +7,16 @@
 //    print(args...);
 //}
 
+void filePutContents(const std::string& name, Float content, bool append = false)
+{
+    std::ofstream outfile;
+    if (append)
+            outfile.open(name, std::ios_base::app);
+    else
+            outfile.open(name);
+    outfile << content << '\n';
+}
+
 template <typename T>
 void print(T &point){
     std::cout <<
@@ -19,3 +29,4 @@ template <typename T>
 void echo(T s){
     std::cout << s ; 
 }
+

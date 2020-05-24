@@ -1,6 +1,6 @@
 struct Mealder 
 {
-    const unsigned int      d = 2; 
+    const unsigned          d = 2; 
     unsigned const          tmax;
     Float                   alpha = 1;
 	Float                   beta  = 2;
@@ -66,9 +66,8 @@ struct Mealder
 		{
             cent.r[j] = 0.0;
 			for(unsigned i = 0; i < d; i++)
-			{
-				cent.r[j] += verts[i].r[j] / d ;
-			}}
+				cent.r[j] += verts[i].r[j] / d;
+        }
         cent.TIME();
     //echo("ce "); print(cent);
 	}	
