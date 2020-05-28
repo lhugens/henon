@@ -31,27 +31,14 @@ struct Simulation {
   
   void PROPOSE()
   {
-    Float d;
-    Float norm = 0;
-    delta = - SIGX[walker.t] * log(mpfr::random());
+    delta = 0;
+    
+    proposal.r[0] = SIGX[walker.t]*mpfr::grandom();
+    proposal.r[1] = SIGY[walker.t]*mpfr::grandom();
 
-    for(unsigned i = 0; i < walker.d; i++) // generate random-directional vector
-    {
-        proposal.r[i] = mpfr::grandom();
-        
-        norm += pow(proposal.r[i], 2);
-
+    for(unsigned i = 0; i < walker.d; i++){
 	    proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
-
 	    proposal.r[i] += (proposal.r[i] < proposal.r_min[i] ? + proposal.box_width[i] : 0);
-    }
-
-    norm = sqrt(norm);
-
-    for(unsigned i = 0; i < walker.d; i++) // normalization
-    {
-proposal.r[i] *= delta / norm;
-proposal.r[i] += walker.r[i];
     }
 
     proposal.TIME();
@@ -59,21 +46,30 @@ proposal.r[i] += walker.r[i];
   
   Float ACCEPT()
   {
-    Float  si = 1/SIGX[walker.t];
-    Float  sp = 1/SIGX[proposal.t];
+    Float sigxw = SIGX[walker.t];   Float sigyw = SIGY[walker.t];
+    Float sigxp = SIGX[proposal.t]; Float sigyp = SIGY[proposal.t];
+
+    Float dx = pow(walker.r[0]-proposal.r[0],2);
+    Float dy = pow(walker.r[1]-proposal.r[1],2);
+
+    Float root_walker   = sqrt((dx/pow(sigxw, 2))+(dy/pow(sigyw, 2)));
+    Float root_proposal = sqrt((dx/pow(sigxp, 2))+(dy/pow(sigyp, 2)));
+
     Float ds =  S[proposal.t] - S[walker.t];
+
     if(proposal.t > 0)
-      return (si/sp) * exp(delta * (sp - si )  - ds);
+        return (sigxw*sigyw) / (sigxp*sigyp) * exp(-root_proposal + root_walker  - ds);
     else
-      return 0;
+        return 0;
   }
   
   void MonteCarloStep()
   {
-    Float Pa, d;
+    Float Pa;
     
     PROPOSE();
     SIGX[walker.t] *= ( proposal.t < walker.t ? 1/ef : (SIGX[walker.t] < 1/ef ?  ef : 1 ));
+    SIGY[walker.t] *= ( proposal.t < walker.t ? 1/ef : (SIGY[walker.t] < 1/ef ?  ef : 1 ));
     Pa = ACCEPT();
     if(Pa > 1 or  mpfr::random() < Pa)
       {
@@ -89,6 +85,7 @@ proposal.r[i] += walker.r[i];
           FLAG = 1;
 
       }
+    printf(walker.t);
     
     S[walker.t] += f;
     HISTO[walker.t] += 1;

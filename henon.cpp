@@ -33,7 +33,7 @@ int main(int argc,char **argv)
     {
         while(simul.count < 10)
             simul.MonteCarloStep();
-        
+
         for(unsigned t = 0; t < simul.tmax; t++)
             std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGX[t] << std::endl;
         

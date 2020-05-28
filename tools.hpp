@@ -1,5 +1,5 @@
 template <typename T>
-void prinft(T t){ std::cout << t << std::endl; }
+void printf(T t){ std::cout << t << std::endl; }
  
 template <typename T, typename... Args>
 void printf(T t, Args... args){
