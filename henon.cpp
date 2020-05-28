@@ -21,12 +21,12 @@ int main(int argc,char **argv)
 {	
     unsigned tmin = 1;
     unsigned tmax = std::stoi(argv[2]);
-    std::string alg_henon   = "henon";
+    std::string alg_carlo   = "carlo";
     std::string alg_mealder = "mealder";
     mpfr::mpreal::set_default_prec(1024);
     std::cout.precision(8);
 
-    if (argv[1] == alg_henon){
+    if (argv[1] == alg_carlo){
     Simulation simul(tmin, tmax);
 
     for(unsigned count = 0; count < 100; count++)
@@ -35,7 +35,7 @@ int main(int argc,char **argv)
             simul.MonteCarloStep();
         
         for(unsigned t = 0; t < simul.tmax; t++)
-            std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGMA[t] << std::endl;
+            std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGX[t] << std::endl;
         
           simul.decreasef();
     }}

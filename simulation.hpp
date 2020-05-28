@@ -4,7 +4,8 @@ struct Simulation {
   HenonMap            walker;
   HenonMap            proposal;
   std::vector<Float>  HISTO;
-  std::vector<Float>  SIGMA;
+  std::vector<Float>  SIGX;
+  std::vector<Float>  SIGY;
   std::vector<Float>  S;
   unsigned            FLAG;
   Float               f;
@@ -14,11 +15,12 @@ struct Simulation {
   
   Simulation(const unsigned t0, const unsigned t1 ) :
     tmin(t0), tmax(t1), walker(tmax), proposal(tmax),
-    HISTO(tmax + 1), SIGMA(tmax + 1), S(tmax + 1)  {
+    HISTO(tmax + 1), SIGX(tmax + 1), SIGY(tmax + 1), S(tmax + 1)  {
 
 
     for(auto& x: S     ) x = 0.0;
-    for(auto& x: SIGMA ) x = 1.0;
+    for(auto& x: SIGX  ) x = 1.0;
+    for(auto& x: SIGY  ) x = 1.0;
     for(auto& x: HISTO ) x = 0.0;
     
     f = 0.01;
@@ -31,18 +33,18 @@ struct Simulation {
   {
     Float d;
     Float norm = 0;
-    delta = - SIGMA[walker.t] * log(mpfr::random());
+    delta = - SIGX[walker.t] * log(mpfr::random());
 
     for(unsigned i = 0; i < walker.d; i++) // generate random-directional vector
-      {
-  proposal.r[i] = mpfr::grandom();
+    {
+        proposal.r[i] = mpfr::grandom();
+        
+        norm += pow(proposal.r[i], 2);
 
-  norm += pow(proposal.r[i], 2);
+	    proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
 
-	proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
-
-	proposal.r[i] += (proposal.r[i] < proposal.r_min[i] ? + proposal.box_width[i] : 0);
-      }
+	    proposal.r[i] += (proposal.r[i] < proposal.r_min[i] ? + proposal.box_width[i] : 0);
+    }
 
     norm = sqrt(norm);
 
@@ -57,8 +59,8 @@ proposal.r[i] += walker.r[i];
   
   Float ACCEPT()
   {
-    Float  si = 1/SIGMA[walker.t];
-    Float  sp = 1/SIGMA[proposal.t];
+    Float  si = 1/SIGX[walker.t];
+    Float  sp = 1/SIGX[proposal.t];
     Float ds =  S[proposal.t] - S[walker.t];
     if(proposal.t > 0)
       return (si/sp) * exp(delta * (sp - si )  - ds);
@@ -71,7 +73,7 @@ proposal.r[i] += walker.r[i];
     Float Pa, d;
     
     PROPOSE();
-    SIGMA[walker.t] *= ( proposal.t < walker.t ? 1/ef : (SIGMA[walker.t] < 1/ef ?  ef : 1 ));
+    SIGX[walker.t] *= ( proposal.t < walker.t ? 1/ef : (SIGX[walker.t] < 1/ef ?  ef : 1 ));
     Pa = ACCEPT();
     if(Pa > 1 or  mpfr::random() < Pa)
       {
