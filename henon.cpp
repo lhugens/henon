@@ -20,22 +20,17 @@ typedef mpfr::mpreal Float;
 int main(int argc,char **argv)
 {	
     unsigned tmin = 1;
-    unsigned tmax = std::stoi(argv[1]);
+    unsigned tmax = std::stoi(argv[2]);
+    std::string alg_henon   = "henon";
+    std::string alg_mealder = "mealder";
     mpfr::mpreal::set_default_prec(1024);
     std::cout.precision(8);
 
-//    Mealder meal(tmax);
-//    for (unsigned trie = 0; trie < 1000; trie++){
-//        meal.TRIANGLE_GEN();
-//        for (unsigned iter = 0; iter < 1000; iter++){
-//            meal.NelderMeadStep();
-//        }
-//    print(meal.verts[0]);
-//    }
-
+    if (argv[1] == alg_henon){
     Simulation simul(tmin, tmax);
+
     for(unsigned count = 0; count < 100; count++)
-      {
+    {
         while(simul.count < 10)
             simul.MonteCarloStep();
         
@@ -43,7 +38,20 @@ int main(int argc,char **argv)
             std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGMA[t] << std::endl;
         
           simul.decreasef();
-      }
+    }}
+
+
+    if (argv[1] == alg_mealder){
+    Mealder meal(tmax);
+
+    for (unsigned trie = 0; trie < 1000; trie++){
+        meal.TRIANGLE_GEN();
+        for (unsigned iter = 0; iter < 1000; iter++){
+            meal.NelderMeadStep();
+        }
+    print(meal.verts[0]);
+    }}
+
 
 }	
 
