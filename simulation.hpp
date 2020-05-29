@@ -58,7 +58,7 @@ struct Simulation {
     Float ds =  S[proposal.t] - S[walker.t];
 
     if(proposal.t > 0)
-        return (sigxw*sigyw) / (sigxp*sigyp) * exp(-root_proposal + root_walker  - ds);
+        return ((sigxw*sigyw) / (sigxp*sigyp)) * exp(-root_proposal + root_walker  - ds);
     else
         return 0;
   }

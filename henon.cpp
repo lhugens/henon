@@ -29,6 +29,7 @@ int main(int argc,char **argv)
     if (argv[1] == alg_carlo){
     Simulation simul(tmin, tmax);
 
+    // Monte Carlo Simulation
     for(unsigned count = 0; count < 100; count++)
     {
         while(simul.count < 10)
@@ -55,4 +56,4 @@ int main(int argc,char **argv)
 
 }	
 
-// g++ -I/usr/local/include -L/usr/local/lib -lgmp -lmpfr -std=c++11 henon.cpp -o henon; ./henon
+// g++ -I/usr/local/include -L/usr/local/lib -lgmp -lmpfr -std=c++11 henon.cpp -o henon; ./henon carlo 50
