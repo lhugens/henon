@@ -35,13 +35,12 @@ int main(int argc,char **argv)
         while(simul.count < 10)
             simul.MonteCarloStep();
 
-        for(unsigned t = 0; t < simul.tmax; t++)
-            std::cout << t << " " << simul.HISTO[t] << " " << simul.SIGX[t] << std::endl;
+        print_simul(simul);
         
           simul.decreasef();
     }}
 
-
+    // Nelder-Mead Method
     if (argv[1] == alg_mealder){
     Mealder meal(tmax);
 
@@ -50,7 +49,7 @@ int main(int argc,char **argv)
         for (unsigned iter = 0; iter < 1000; iter++){
             meal.NelderMeadStep();
         }
-    print(meal.verts[0]);
+    print_point(meal.verts[0]);
     }}
 
 

@@ -33,8 +33,8 @@ struct Simulation {
   {
     delta = 0;
     
-    proposal.r[0] = SIGX[walker.t]*mpfr::grandom();
-    proposal.r[1] = SIGY[walker.t]*mpfr::grandom();
+    proposal.r[0] = walker.r[0] + SIGX[walker.t]*mpfr::grandom();
+    proposal.r[1] = walker.r[1] + SIGY[walker.t]*mpfr::grandom();
 
     for(unsigned i = 0; i < walker.d; i++){
 	    proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
@@ -85,7 +85,7 @@ struct Simulation {
           FLAG = 1;
 
       }
-    printf(walker.t);
+    //printf(walker.t);
     
     S[walker.t] += f;
     HISTO[walker.t] += 1;
