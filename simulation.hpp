@@ -85,7 +85,7 @@ struct Simulation {
           FLAG = 1;
 
       }
-    //printf(walker.t);
+    printf(walker.t);
     
     S[walker.t] += f;
     HISTO[walker.t] += 1;

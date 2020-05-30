@@ -20,10 +20,10 @@ void filePutContents(const std::string& name, Float content, bool append = false
 template <typename T>
 void print_point(T &point){
     std::cout <<
-        " [ " << std::setw(5)  << point.t    <<
-        ", "  << std::setw(15) << point.r[0] <<
-        ", "  << std::setw(15) << point.r[1] <<
-        " ]"  << std::setw(15) << std::endl;
+        " " << std::setw(5)  << point.t    <<
+        " " << std::setw(15) << point.r[0] <<
+        " " << std::setw(15) << point.r[1] <<
+        " " << std::endl;
 }
 
 template <typename T>
