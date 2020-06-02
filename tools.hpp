@@ -31,8 +31,33 @@ void print_simul(T &simul){
     for(unsigned t = 0; t < simul.tmax; t++)
         std::cout << std::setw(5)  << t              <<
             " "   << std::setw(7)  << simul.HISTO[t] <<
-            " "   << std::setw(15) << simul.SIGX[t]  <<
-            " "   << std::setw(15) << simul.SIGY[t]  <<
+            " "   << std::setw(15) << simul.SIG[0][t]  <<
+            " "   << std::setw(15) << simul.SIG[1][t]  <<
+            " "   << std::endl;
+}
+
+template <typename T>
+void print_simul_temp(T &simul){
+    for(unsigned t = 0; t < simul.tmax; t++)
+        std::cout << std::setw(5)  << t              <<
+            " "   << std::setw(7)  << simul.HISTO[t] <<
+            " "   << std::setw(15) << simul.SIG[t]  <<
+            " "   << std::setw(15) << simul.SIG[t]  <<
+            " "   << std::endl;
+}
+
+template <typename T, typename K>
+void print_comparison(T &simul, K &simul1){
+    std::cout << simul.steps << " " << simul1.steps << std::endl;
+    for(unsigned t = 0; t < simul.tmax; t++)
+        std::cout << std::setw(5)  << t              <<
+            " "   << std::setw(7)  << simul.HISTO[t] <<
+            " "   << std::setw(15) << simul.SIG[0][t]  <<
+            " "   << std::setw(15) << simul.SIG[1][t]  <<
+            " "   << std::setw(5)  << t              <<
+            " "   << std::setw(7)  << simul1.HISTO[t] <<
+            " "   << std::setw(15) << simul1.SIG[t]  <<
+            " "   << std::setw(15) << simul1.SIG[t]  <<
             " "   << std::endl;
 }
 

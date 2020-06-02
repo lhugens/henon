@@ -15,6 +15,7 @@ typedef mpfr::mpreal Float;
 #include "tools.hpp"
 #include "map.hpp"
 #include "simulation.hpp"
+#include "simulation_temp.hpp"
 #include "mealder.hpp"
 
 int main(int argc,char **argv)
@@ -28,6 +29,7 @@ int main(int argc,char **argv)
 
     if (argv[1] == alg_carlo){
     Simulation simul(tmin, tmax);
+    Simulation_temp simul_temp(tmin, tmax);
 
     // Monte Carlo Simulation
     for(unsigned count = 0; count < 100; count++)
@@ -35,11 +37,15 @@ int main(int argc,char **argv)
         while(simul.count < 10)
             simul.MonteCarloStep();
 
-        print_simul(simul);
-        
-          simul.decreasef();
-    }}
+        while(simul_temp.count < 10)
+            simul_temp.MonteCarloStep();
 
+//        print_simul(simul);
+        print_comparison(simul, simul_temp);
+        
+        simul.decreasef();
+        simul_temp.decreasef();
+    }}
     // Nelder-Mead Method
     if (argv[1] == alg_mealder){
     Mealder meal(tmax);

@@ -1,35 +1,27 @@
-struct Simulation {
+struct Simulation_temp {
   unsigned const      tmin;
   unsigned const      tmax;
   HenonMap            walker;
   HenonMap            proposal;
   std::vector<Float>  HISTO;
-//  std::vector<Float>  SIGX;
-//  std::vector<Float>  SIGY;
+  std::vector<Float>  SIG;
   std::vector<Float>  S;
-  std::array<std::vector<Float>,2> SIG;
   unsigned            FLAG;
   Float               f;
   Float               ef;
   Float               delta;
   unsigned            count;
   unsigned            steps;
-  unsigned            dir;
   
-  Simulation(const unsigned t0, const unsigned t1 ) :
-    tmin(t0), tmax(t1),  walker(tmax), proposal(tmax),
-    HISTO(tmax + 1), 
-//    SIGX(tmax + 1), SIGY(tmax + 1),
-    S(tmax + 1){
+  Simulation_temp(const unsigned t0, const unsigned t1 ) :
+    tmin(t0), tmax(t1), walker(tmax), proposal(tmax),
+    HISTO(tmax + 1), SIG(tmax + 1), S(tmax + 1)  {
 
-    std::vector<Float> sig(tmax + 1);
+
     for(auto& x: S     ) x = 0.0;
-    for(auto& x: sig   ) x = 1.0;
+    for(auto& x: SIG   ) x = 1.0;
     for(auto& x: HISTO ) x = 0.0;
     
-    for(unsigned i = 0; i < 2; i++)
-        SIG[i]=sig ;
-
     f = 0.01;
     ef = exp(f);
     FLAG = 1;
@@ -37,16 +29,12 @@ struct Simulation {
     steps = 0;
   };
   
-  void PROPOSE()
+    void PROPOSE()
   {
     delta = 0;
-
-	dir = (mpfr::random() < 0.5 ? 0 : 1);
-
+    
     for(unsigned i = 0; i < walker.d; i++)
-        proposal.r[i] = walker.r[i];
-
-    proposal.r[dir] += SIG[dir][walker.t]*mpfr::grandom();
+        proposal.r[i] = walker.r[i] + SIG[walker.t]*mpfr::grandom();
 
     for(unsigned i = 0; i < walker.d; i++){
 	    proposal.r[i] += (proposal.r[i] > proposal.r_max[i] ? - proposal.box_width[i] : 0);
@@ -54,24 +42,23 @@ struct Simulation {
     }
 
     proposal.TIME();
-
-    SIG[dir][walker.t] *= ( proposal.t < walker.t ? 1/ef : (SIG[dir][walker.t] < 1/ef ?  ef : 1 ));
   }
   
   Float ACCEPT()
   {
-    Float sigw = SIG[dir][walker.t];
-    Float sigp = SIG[dir][proposal.t];
+    Float sigw2 = pow(SIG[walker.t],2);   
+    Float sigp2 = pow(SIG[proposal.t],2);
 
-    Float dr = pow(walker.r[dir]-proposal.r[dir],2);
+    Float dx = pow(walker.r[0]-proposal.r[0],2);
+    Float dy = pow(walker.r[1]-proposal.r[1],2);
 
-    Float pow_walker   = dr/2/pow(sigw, 2);
-    Float pow_proposal = dr/2/pow(sigp, 2);
+    Float root_walker   = (dx+dy)/2/sigw2;
+    Float root_proposal = (dx+dy)/2/sigp2;
 
     Float ds =  S[proposal.t] - S[walker.t];
 
     if(proposal.t > 0)
-        return (sigw / sigp) * exp(-pow_proposal + pow_walker  - ds);
+        return (sigw2 / sigp2) * exp(-root_proposal + root_walker  - ds);
     else
         return 0;
   }
@@ -82,6 +69,8 @@ struct Simulation {
     Float Pa;
     
     PROPOSE();
+    SIG[walker.t] *= ( proposal.t < walker.t ? 1/ef : (SIG[walker.t] < 1/ef ?  ef : 1 ));
+
     Pa = ACCEPT();
     if(Pa > 1 or  mpfr::random() < Pa)
       {
@@ -113,5 +102,3 @@ struct Simulation {
   }
   
 };
-
-
